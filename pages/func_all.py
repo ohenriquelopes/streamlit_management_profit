@@ -71,6 +71,8 @@ def get_rateio_mes():
     # Renomeie a coluna de índice para 'novo_indice'
     df1 = df.rename_axis('id')
     df1.columns = ['tag', 'porcentagem', 'resultado']
+    valor = '{:,.2f}'.format(valor).replace(',', '|').replace('.', ',').replace('|', '.')
+    st.text(valor)
     st.dataframe(df1)
 
 
