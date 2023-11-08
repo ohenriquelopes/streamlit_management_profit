@@ -66,19 +66,18 @@ def get_rateio_mes():
     df1 = pd.DataFrame(r1)
     soma = df.groupby(df[1])[2].sum()
     valor = soma.iloc[0]
-    df1['resultado'] = valor / df1[2]
+    df1['resultado'] = valor / (df1[2] / 100)
     df1.set_index(df1.columns[0], inplace=True)
     # Renomeie a coluna de índice para 'novo_indice'
-    df1 = df.rename_axis('id')
+    df1 = df1.rename_axis('id')
     df1.columns = ['tag', 'porcentagem', 'resultado']
     valor = '{:,.2f}'.format(valor).replace(',', '|').replace('.', ',').replace('|', '.')
+    df1['resultado'] = df1['resultado'].apply(
+        lambda x: '{:,.2f}'.format(x).replace(',', '|').replace('.', ',').replace('|', '.')
+    )
     st.text(valor)
     st.dataframe(df1)
 
-
-def calcular_e_adicionar_coluna(df1, df2):
-    df2['resultado'] = df1 * (df2['Porcentagem'] / 100)
-    return df2
 
 
 def get_equivalente_calculado():
