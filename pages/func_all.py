@@ -66,9 +66,8 @@ def get_rateio_mes():
     df1 = pd.DataFrame(r1)
     soma = df.groupby(df[1])[2].sum()
     valor = soma.iloc[0]
-    df1['resultado'] = valor / (df1[2] / 100)
+    df1['resultado'] = valor * (df1[2] / 100)
     df1.set_index(df1.columns[0], inplace=True)
-    # Renomeie a coluna de índice para 'novo_indice'
     df1 = df1.rename_axis('id')
     df1.columns = ['tag', 'porcentagem', 'resultado']
     valor = '{:,.2f}'.format(valor).replace(',', '|').replace('.', ',').replace('|', '.')
@@ -79,26 +78,4 @@ def get_rateio_mes():
     st.dataframe(df1)
 
 
-
-def get_equivalente_calculado():
-    st.write("# Equivalente Calculado")
-    result1 = query_rateio()
-    # pegar a entrada do mes (somada), e divir pelas % da tabela rateio
-    df = pd.DataFrame(result1, columns=[desc[0] for desc in cursor.description])
-    df.set_index(df.columns[0], inplace=True)
-    ###############
-
-    result2 = query_salarios_history()
-    df1 = pd.DataFrame(result2, columns=[desc[0] for desc in cursor.description])
-    df1.set_index(df.columns[0], inplace=True)
-    # df['entrada'] = df['entrada'].apply(
-    #     lambda x: '{:,.2f}'.format(x)
-        # .replace(',', '|').replace('.', ',').replace('|', '.'))
-    # soma_por_mes = df1.groupby(df1['mes_ano'])['entrada'].sum()
-    ###############
-
-    # df['resultado'] = soma_por_mes['entrada'] * (df['Porcentagem'] / 100)
-
-    st.dataframe(df)
-    st.dataframe(df1)
 
