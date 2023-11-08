@@ -59,15 +59,24 @@ def query_salarios_history():
     results = cursor.fetchall()
     return results
 
-def get_div_mes():
+def get_rateio_mes():
     r1 = query_rateio()
     r2 = query_salarios_history()
     df = pd.DataFrame(r2)
+    df1 = pd.DataFrame(r1)
     soma = df.groupby(df[1])[2].sum()
     valor = soma.iloc[0]
-    st.write(valor)
-    # st.write(r)
-    st.dataframe(soma)
+    df1['resultado'] = valor / df1[2]
+    df1.set_index(df1.columns[0], inplace=True)
+    # Renomeie a coluna de índice para 'novo_indice'
+    df1 = df.rename_axis('id')
+    df1.columns = ['tag', 'porcentagem', 'resultado']
+    st.dataframe(df1)
+
+
+def calcular_e_adicionar_coluna(df1, df2):
+    df2['resultado'] = df1 * (df2['Porcentagem'] / 100)
+    return df2
 
 
 def get_equivalente_calculado():

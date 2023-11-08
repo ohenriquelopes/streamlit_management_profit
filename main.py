@@ -39,7 +39,8 @@ def main():
     # df1 = df
     # st.write(df1[0])
     # st.write(df1[0][2])
-    func_all.get_div_mes()
+    func_all.get_rateio_mes()
+
 
 
 if __name__ == '__main__':
