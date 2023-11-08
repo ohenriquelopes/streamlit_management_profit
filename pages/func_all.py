@@ -62,19 +62,13 @@ def query_salarios_history():
 def get_div_mes():
     r1 = query_rateio()
     r2 = query_salarios_history()
-    # soma = r2.groupby(r2['mes_ano'])['entrada'].sum()
-    # soma = r2.groupby(r2[1])[2].sum()
-    # soma = r2.groupby(0)[1].sum()
     df = pd.DataFrame(r2)
-    df.set_index(df.columns[0], inplace=True)
     soma = df.groupby(df[1])[2].sum()
-
-    st.write(df.iloc[0, 1])
-    # st.write(soma[1])
-    # st.dataframe(r1)
-    # st.dataframe(r2)
+    valor = soma.iloc[0]
+    st.write(valor)
+    # st.write(r)
     st.dataframe(soma)
-#
+
 
 def get_equivalente_calculado():
     st.write("# Equivalente Calculado")
