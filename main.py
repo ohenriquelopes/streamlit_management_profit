@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 import pages.func_all as func_all
+import datetime
 
 
 def main():
@@ -40,8 +41,7 @@ def main():
     # st.write(df1[0])
     # st.write(df1[0][2])
     func_all.get_rateio_mes()
-
-
+    func_all.get_mes_atual()
 
 if __name__ == '__main__':
     main()

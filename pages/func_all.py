@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
+import datetime
 
 conn = sqlite3.connect('my_data_base.db')
 cursor = conn.cursor()
@@ -76,6 +77,11 @@ def get_rateio_mes():
     )
     st.text(valor)
     st.dataframe(df1)
+
+def get_mes_atual():
+    data_atual = datetime.datetime.now()
+    mes_atual = data_atual.month
+    st.write(mes_atual)
 
 
 
