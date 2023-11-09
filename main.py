@@ -1,8 +1,5 @@
 import streamlit as st
-import pandas as pd
-import sqlite3
-import pages.func_all as func_all
-import datetime
+import controller.gets as func_all
 
 
 def main():

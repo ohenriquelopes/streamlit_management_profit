@@ -50,15 +50,7 @@ def get_equivalente():
     st.dataframe(df)
 
 
-def query_rateio():
-    cursor.execute('SELECT * FROM rateio')
-    results = cursor.fetchall()
-    return results
-    # st.write(results)
-def query_salarios_history():
-    cursor.execute('SELECT * FROM salarios_history')
-    results = cursor.fetchall()
-    return results
+
 
 def get_rateio_mes():
     r1 = query_rateio()
