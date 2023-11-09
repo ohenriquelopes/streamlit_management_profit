@@ -10,7 +10,7 @@ def select_all_rateio():
     results = cursor.fetchall()
     return results
     # st.write(results)
-def select_all_history():
+def select_all_salario_history():
     cursor.execute('SELECT * FROM salarios_history')
     results = cursor.fetchall()
     return results
