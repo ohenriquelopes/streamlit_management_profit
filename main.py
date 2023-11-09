@@ -10,9 +10,8 @@ def main():
     st.markdown('<link rel="stylesheet" type="text/css" href="custom.css">', unsafe_allow_html=True)
 
 
-    func_all.get_rateio_mes()
-    func_all.get_mes_atual()
 
+    st.selectbox("Pick one", ["cats", "dogs"])
 
 
 if __name__ == '__main__':
