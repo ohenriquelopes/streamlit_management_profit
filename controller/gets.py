@@ -1,16 +1,11 @@
-import streamlit as st
-import pandas as pd
 import sqlite3
 import datetime
-
-conn = sqlite3.connect('my_data_base.db')
-cursor = conn.cursor()
+import controller.select as s
 
 
-def get_contas_fixas():
+def get_contas_fixas(conn):
     st.write("# Contas Fixas")
-    cursor.execute('SELECT * FROM contas_fixas')
-    results = cursor.fetchall()
+    results = s.select_all_contas_fixas()
     df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
     df.set_index(df.columns[0], inplace=True)
     st.dataframe(df)
@@ -22,9 +17,7 @@ def get_salarios_history():
     results = cursor.fetchall()
     df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
     df.set_index(df.columns[0], inplace=True)
-    # df['entrada'] = df['entrada'].apply(
-    #     lambda x: '{:,.2f}'.format(x)
-        # .replace(',', '|').replace('.', ',').replace('|', '.'))
+
     st.dataframe(df)
 
 def get_soma_por_mes():
@@ -33,9 +26,7 @@ def get_soma_por_mes():
     results = cursor.fetchall()
     df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
     df.set_index(df.columns[0], inplace=True)
-    # df['entrada'] = df['entrada'].apply(
-    #     lambda x: '{:,.2f}'.format(x)
-        # .replace(',', '|').replace('.', ',').replace('|', '.'))
+
     soma_por_mes = df.groupby(df['mes_ano'])['entrada'].sum()
     st.dataframe(soma_por_mes)
 
@@ -53,8 +44,8 @@ def get_equivalente():
 
 
 def get_rateio_mes():
-    r1 = query_rateio()
-    r2 = query_salarios_history()
+    r1 = s.select_all_rateio()
+    r2 = s.select_all_salario_history()
     df = pd.DataFrame(r2)
     df1 = pd.DataFrame(r1)
     soma = df.groupby(df[1])[2].sum()
@@ -74,6 +65,33 @@ def get_mes_atual():
     data_atual = datetime.datetime.now()
     mes_atual = data_atual.month
     st.write(mes_atual)
+
+
+import sqlite3
+import streamlit as st
+import pandas as pd
+import datetime
+import controller.select as s
+
+def get_contas_fixas(conn):
+    st.write("# Contas Fixas")
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM contas_fixas')
+    results = cursor.fetchall()
+    df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
+    df.set_index(df.columns[0], inplace=True)
+    st.dataframe(df)
+
+def get_salarios_history(conn):
+    st.write("# Salários History")
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM salarios_history')
+    results = cursor.fetchall()
+    df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
+    df.set_index(df.columns[0], inplace=True)
+    st.dataframe(df)
+
+# Adicione as modificações necessárias nas outras funções semelhantes
 
 
 
